@@ -2,13 +2,13 @@ package consumer.application
 
 import consumer.domain.Supply
 
-class CSVConsumer: Consumer {
+class CSVConsumer: ConsumerService {
     override fun consume(): List<Supply> {
         readCSV()
         return emptyList()
     }
 
-    private fun readCSV() {
+    private fun readCSV(): List<Supply> {
         val csvText = this.javaClass.classLoader.getResource("NOVEMBER_DATA_TO_BE_INVOICED.csv")?.readText()
 
         if (csvText.isNullOrBlank()){
@@ -20,6 +20,7 @@ class CSVConsumer: Consumer {
                 val (supplyPoint, energyConsumption, periodOnePower, periodTwoPower) = it.split(";")
                 Supply(supplyPoint, energyConsumption.toInt(), periodOnePower.toDouble(), periodTwoPower.toDouble())
             }.toList()
-        println(list)
+
+        return list
     }
 }

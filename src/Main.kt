@@ -1,7 +1,7 @@
 import consumer.application.CSVConsumer
-import consumer.application.ConsumerService
+import consumer.application.ConsumerServiceImpl
 
 fun main() {
-    val csvConsumer = ConsumerService(CSVConsumer())
+    val csvConsumer = ConsumerServiceImpl(CSVConsumer())
     val supplyData = csvConsumer.getData()
 }
