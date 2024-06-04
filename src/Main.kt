@@ -1,3 +1,7 @@
+import consumer.application.CSVConsumer
+import consumer.application.ConsumerService
+
 fun main() {
-    println("Hello, world!")
+    val csvConsumer = ConsumerService(CSVConsumer())
+    val supplyData = csvConsumer.getData()
 }
