@@ -4,8 +4,7 @@ import consumer.domain.Supply
 
 class CSVConsumer: ConsumerService {
     override fun consume(): List<Supply> {
-        readCSV()
-        return emptyList()
+        return readCSV()
     }
 
     private fun readCSV(): List<Supply> {
