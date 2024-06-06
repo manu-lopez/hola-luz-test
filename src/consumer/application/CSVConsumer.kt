@@ -1,6 +1,7 @@
 package consumer.application
 
 import consumer.domain.Supply
+import java.io.InputStream
 
 class CSVConsumer: ConsumerService {
     override fun consume(): List<Supply> {
@@ -8,11 +9,7 @@ class CSVConsumer: ConsumerService {
     }
 
     private fun readCSV(): List<Supply> {
-        val csvText = this.javaClass.classLoader.getResource("NOVEMBER_DATA_TO_BE_INVOICED.csv")?.readText()
-
-        if (csvText.isNullOrBlank()){
-            throw Error("File not found")
-        }
+        val csvText = getResourceAsString("NOVEMBER_DATA_TO_BE_INVOICED.csv")
 
         val list = csvText.lineSequence().drop(1).filter { it.isNotBlank() }
             .map {
@@ -21,5 +18,11 @@ class CSVConsumer: ConsumerService {
             }.toList()
 
         return list
+    }
+
+    private fun getResourceAsString(resourcePath: String): String {
+        val inputStream: InputStream = this::class.java.classLoader.getResourceAsStream(resourcePath)
+            ?: throw IllegalArgumentException("Resource $resourcePath not found")
+        return inputStream.bufferedReader().use { it.readText() }
     }
 }

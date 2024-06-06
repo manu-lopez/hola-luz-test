@@ -1,12 +1,18 @@
 package producer.application
 
 import invoice.domain.Invoice
+import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
 class CSVProducer: ProducerService {
     override fun produce(supplies: List<Invoice>) {
-        FileOutputStream("invoices.csv").apply { writeCSV(supplies) }
+        val path = File("./CSV_GENERATED")
+        val file = "${path}/invoices.csv"
+
+        if(!path.exists()) path.mkdirs()
+
+        FileOutputStream(file).apply { writeCSV(supplies) }
     }
 
     private fun OutputStream.writeCSV(supplies: List<Invoice>){
@@ -18,5 +24,7 @@ class CSVProducer: ProducerService {
             writer.newLine()
         }
         writer.flush()
+
+        println("CSV created")
     }
 }

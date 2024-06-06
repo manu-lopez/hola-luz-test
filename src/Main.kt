@@ -1,3 +1,5 @@
+package com.manu
+
 import consumer.application.CSVConsumer
 import consumer.application.ConsumerServiceImpl
 import invoice.application.InvoiceServiceImpl
